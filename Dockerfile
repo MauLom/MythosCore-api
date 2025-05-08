@@ -14,6 +14,15 @@ COPY . .
 # Build the project
 RUN npm run build
 
+# Stage 2: Runtime
+FROM node:20-slim AS runtime
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the necessary files from the builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
 # Expose the NestJS default port
 EXPOSE 3000
 
