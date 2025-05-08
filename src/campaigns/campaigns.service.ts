@@ -3,13 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Campaign, CampaignDocument } from './schemas/campaign.schema';
 
+
+
 @Injectable()
 export class CampaignsService {
   constructor(
     @InjectModel(Campaign.name) private model: Model<CampaignDocument>
   ) {}
 
-  async create(dto: any) {
+  async create(dto: Campaign) {
     return this.model.create(dto);
   }
 
